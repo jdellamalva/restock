@@ -193,9 +193,11 @@ const Products = (props) => {
 
     const restockProducts = (url) => {
       doFetch(url);
-      useEffect(() => {
-          if (!isLoading) setItems(data);
-      }, [data]);
+      let newItems = data.map((item) => {
+        let { name, country, cost, instock } = item;
+        return { name, country, cost, instock };
+      });
+      setItems([...items, ...newItems]);
     };
 
     const ModeToggle = ({mode, setMode}) => {
